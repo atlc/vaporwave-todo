@@ -1,0 +1,24 @@
+// First override some or all individual color variables
+$primary: #6c1c95;
+$secondary: #ff5af4;
+$success: #3e8d63;
+$info: #7b50fd;
+$warning: #fffd71;
+$danger: #d62518;
+$light: #f8f9fa;
+$dark: #343a40;
+
+// Then add them to your custom theme-colors map, together with any additional colors you might need
+$theme-colors: (
+    primary: $primary,
+    secondary: $secondary,
+    success: $success,
+    info: $info,
+    warning: $warning,
+    danger: $danger,
+    light: $light,
+    dark: $dark,
+    // add any additional color below
+);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
