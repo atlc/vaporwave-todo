@@ -2,36 +2,32 @@ import React, { useState } from "react";
 import { Item } from "../../types";
 import { DELETE, PUT } from "../services/fetcher";
 
-const TodoItem = ({ content, is_complete, id }: Item) => {
-    const [isActive, setIsActive] = useState(false);
+interface TodoProps extends Item {
+    reload: () => void;
+}
 
+const TodoItem = ({ content, is_complete, id, reload }: TodoProps) => {
     const handleDelete = () => {
-        DELETE(`/api/items/${id}`)
-            .then(data => alert(data.message))
-            .catch(error => alert(error));
+        DELETE(`/api/items/${id}`).then(reload).catch(alert);
     };
 
     const handleToggle = () => {
-        PUT(`/api/items/${id}/toggle`, { current_status: is_complete })
-            .then(data => alert(data.message))
-            .catch(error => alert(error));
+        PUT(`/api/items/${id}/toggle`, { current_status: is_complete }).then(reload).catch(alert);
     };
 
     return (
         <>
-            <p className="text-info" onClick={() => setIsActive(!isActive)}>
-                {is_complete ? "✅" : "⏳"} {content}
-            </p>
-            {isActive && (
-                <p className="mx-2">
-                    <button onClick={handleToggle} className="btn btn-sm btn-warning mx-2">
-                        Mark as {!is_complete ? "✅" : "⏳"}?
-                    </button>
-                    <button onClick={handleDelete} className="btn btn-sm btn-danger mx-2">
+            <p className="text-info">
+                <span className="mx-2" onClick={handleToggle}>
+                    {is_complete ? "🗹" : "☐"}
+                </span>
+                <span className={`mx-2 ${is_complete && "strike"}`}>{content}</span>
+                {is_complete ? (
+                    <span onClick={handleDelete} className="border border-2 border-secondary rounded-3 mx-3">
                         🗑️?
-                    </button>
-                </p>
-            )}
+                    </span>
+                ) : null}
+            </p>
         </>
     );
 };

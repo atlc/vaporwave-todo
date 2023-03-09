@@ -2,7 +2,7 @@ import * as passport from "passport";
 import { RequestHandler } from "express";
 
 export const tokenCheck: RequestHandler = (req, res, next) => {
-    passport.authenticate("jwt", { session: false }, (err, user, info) => {
+    passport.authenticate("jwt", { session: false }, (err: any, user: Express.User, info: any) => {
         if (err) {
             res.status(500).json({ message: "Authentication error!", error: err.message });
             return;

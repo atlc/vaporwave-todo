@@ -7,18 +7,22 @@ import { GET } from "../services/fetcher";
 export default function Home() {
     const [items, setItems] = useState<Item[]>([]);
 
-    useEffect(() => {
+    function getItems() {
         GET("/api/items")
             .then(items => setItems(items))
             .catch(error => alert(error));
+    }
+
+    useEffect(() => {
+        getItems();
     }, []);
 
     return (
         <div className="px-2">
-            <Input />
-            <div className="row border border-secondary border-2  bg-light p-3 rounded-3 shadow mt-2">
+            <Input reload={getItems} />
+            <div className="row border border-secondary border-3  bg-light p-3 rounded-3 shadow-lg mt-2">
                 {items.map(item => (
-                    <TodoItem key={`item-${item.id}`} {...item} />
+                    <TodoItem key={`item-${item.id}`} reload={getItems} {...item} />
                 ))}
             </div>
         </div>
