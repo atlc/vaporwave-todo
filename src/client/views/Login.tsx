@@ -5,7 +5,7 @@ import { POST, TOKEN_KEY } from "../services/fetcher";
 
 export default function Login() {
     const [isLogin, setIsLogin] = useState(true);
-    const [form, setForm] = useState({ email: "", password: "" });
+    const [form, setForm] = useState({ name: "", email: "", password: "" });
     const navigate = useNavigate();
 
     const handleUpdateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,13 +31,22 @@ export default function Login() {
                     <h6>
                         Currently <span className="text-secondary">{isLogin ? "logging in" : "registering"}</span>.{" "}
                         <span className="bg-secondary p-2 rounded-2 shadow" onClick={() => setIsLogin(!isLogin)}>
-                            Toggle
+                            {isLogin ? "Need to register?" : "Need to login?"}
                         </span>
                     </h6>
+
+                    {!isLogin && (
+                        <>
+                            <label>Name:</label>
+                            <input placeholder="Bender B. Rodríguez" onChange={handleUpdateForm} name="name" value={form["name"]} className="form-control" type="text" />
+                        </>
+                    )}
+
                     <label>Email:</label>
-                    <input onChange={handleUpdateForm} name="email" value={form["email"]} className="form-control" type="email" />
+                    <input placeholder="bender@planetexpress.earth" onChange={handleUpdateForm} name="email" value={form["email"]} className="form-control" type="email" />
+
                     <label>Password:</label>
-                    <input onChange={handleUpdateForm} name="password" value={form["password"]} className="form-control" type="password" placeholder="If you type hunter2 all we see is *******" />
+                    <input onChange={handleUpdateForm} name="password" value={form["password"]} className="form-control" type="password" placeholder="No, you typed hunter2, all we see is *******" />
 
                     {form["email"] && form["password"] && (
                         <div onClick={handleLogin} className="btn btn-primary mt-2">
