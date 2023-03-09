@@ -4,6 +4,7 @@ import { CreatableUser } from "../../../types/index";
 import users from "../../db/queries/users";
 import bcrypt_utils from "../../utils/bcrypt";
 import token_utils from "../../utils/tokens";
+import { tokenCheck } from "../../middlewares/jwtCheck";
 
 const router = express.Router();
 
@@ -35,5 +36,7 @@ router.post("/login", loginCheck, async (req, res) => {
 
     res.json({ message: "Successfully logged in!", token });
 });
+
+router.get("/verify", tokenCheck, (req, res) => res.json({ message: "Token valid!" }));
 
 export default router;

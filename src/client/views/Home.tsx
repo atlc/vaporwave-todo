@@ -19,16 +19,21 @@ export default function Home() {
     }
 
     useEffect(() => {
-        getItems();
+        GET("/auth/verify")
+            .then(getItems)
+            .catch(() => nav("/login"));
     }, []);
 
     return (
         <div className="px-2">
             <Input reload={getItems} />
-            <div className="row border border-secondary border-3  bg-light p-3 rounded-3 shadow-lg mt-2">
-                {items.map(item => (
-                    <TodoItem key={`item-${item.id}`} reload={getItems} {...item} />
-                ))}
+            <div className="row border border-secondary p-3 border-2 bg-light rounded-3 shadow-lg mt-2">
+                {items.length === 0 && (
+                    <p style={{ opacity: 0.5 }} className="text-center text-info fw-light">
+                        No Todo List Items Found!
+                    </p>
+                )}
+                {items.length > 0 && items.map(item => <TodoItem key={`item-${item.id}`} reload={getItems} {...item} />)}
             </div>
         </div>
     );

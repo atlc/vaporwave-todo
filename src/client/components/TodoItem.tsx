@@ -23,7 +23,7 @@ const TodoItem = ({ content, is_complete, id, reload }: TodoProps) => {
                 </span>
                 <span className={`mx-2 ${is_complete && "strike"}`}>{content}</span>
                 {is_complete ? (
-                    <span onClick={handleDelete} className="border border-2 border-secondary rounded-3 mx-3">
+                    <span onClick={handleDelete} className="border border-1 border-secondary rounded-3 bg-info text-center  mx-3">
                         🗑️?
                     </span>
                 ) : null}

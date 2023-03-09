@@ -18,10 +18,15 @@ export default function Login() {
                 if (data.token) {
                     localStorage.setItem(TOKEN_KEY, data.token);
                 }
-                alert(data.message || "Nice!");
                 navigate("/");
             })
             .catch(error => alert("Oh noes!\n" + error));
+    };
+
+    const submitOnReturn = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            handleLogin();
+        }
     };
 
     return (
@@ -30,7 +35,7 @@ export default function Login() {
                 <form className="bg-light p-3 shadow rounded-2">
                     <h6>
                         Currently <span className="text-secondary">{isLogin ? "logging in" : "registering"}</span>.{" "}
-                        <span className="bg-secondary p-2 rounded-2 shadow" onClick={() => setIsLogin(!isLogin)}>
+                        <span className="bg-secondary text-light p-2 rounded-2 shadow" onClick={() => setIsLogin(!isLogin)}>
                             {isLogin ? "Need to register?" : "Need to login?"}
                         </span>
                     </h6>
@@ -46,7 +51,15 @@ export default function Login() {
                     <input placeholder="bender@planetexpress.earth" onChange={handleUpdateForm} name="email" value={form["email"]} className="form-control" type="email" />
 
                     <label>Password:</label>
-                    <input onChange={handleUpdateForm} name="password" value={form["password"]} className="form-control" type="password" placeholder="No, you typed hunter2, all we see is *******" />
+                    <input
+                        onKeyDown={submitOnReturn}
+                        onChange={handleUpdateForm}
+                        name="password"
+                        value={form["password"]}
+                        className="form-control"
+                        type="password"
+                        placeholder="No, you typed hunter2, all we see is *******"
+                    />
 
                     {form["email"] && form["password"] && (
                         <div onClick={handleLogin} className="btn btn-primary mt-2">

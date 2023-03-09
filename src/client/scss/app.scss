@@ -27,9 +27,19 @@ $theme-colors: (
     text-decoration: line-through;
 }
 
+.greenAF {
+    color: #3e8d63 !important;
+}
+
+// Targeting JUST the input placeholder for the home page
+.shadow::placeholder,
+.shadow::-moz-placeholder,
+.shadow::-webkit-input-placeholder {
+    color: #7b50fd !important;
+}
+
 ::placeholder,
 ::-moz-placeholder,
 ::-webkit-input-placeholder {
-    font-weight: lighter;
     font-style: italic;
 }
