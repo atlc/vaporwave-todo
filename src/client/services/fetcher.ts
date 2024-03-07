@@ -1,11 +1,11 @@
 type SUPPORTED_METHODS = "GET" | "POST" | "PUT" | "DELETE";
 type AUTH_URLs = `/auth/${"register" | "login" | "verify"}`;
-type API_URLs = `/api/${"items" | "notes"}`;
+type API_URLs = `/api/${"items" | "profile"}`;
 type API_WITH_PARAMS = `${API_URLs}${`/${number}` | `/${number}/toggle` | `/${number}/` | `/${number}/toggle/` | "/" | ""}`;
 type VALID_URL_FORMAT = AUTH_URLs | API_URLs | API_WITH_PARAMS;
 
 interface fetcherArgs {
-    url: VALID_URL_FORMAT;
+    url: VALID_URL_FORMAT | string;
     method: SUPPORTED_METHODS;
     data: any;
 }

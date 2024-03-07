@@ -3,9 +3,10 @@ import Items from "../../db/queries/items";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get(["/", "/profile"], async (req, res) => {
     if (!req.user) return res.status(401).json({ message: "Invalid credentials" });
-    const user_id = req.user.id;
+    const userid = req.query.userid as string | undefined;
+    const user_id = userid ? parseInt(userid) : req.user.id;
 
     try {
         const user_items = await Items.all(user_id);

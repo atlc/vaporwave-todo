@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Item } from "../../types";
 import Input from "../components/Input";
 import TodoItem from "../components/TodoItem";
@@ -7,10 +7,14 @@ import { GET } from "../services/fetcher";
 
 export default function Home() {
     const nav = useNavigate();
+    const { userid } = useParams();
+
     const [items, setItems] = useState<Item[]>([]);
 
     function getItems() {
-        GET("/api/items")
+        const url = userid ? `/api/profile` : "/api/items";
+
+        GET(url)
             .then(items => setItems(items))
             .catch(error => {
                 alert(error);
